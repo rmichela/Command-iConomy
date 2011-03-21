@@ -1,0 +1,32 @@
+========= Overview =========
+Command iConomy is a plugin that allows a server admin
+to assign a cost to server commands that is deducted from
+a player's iConomy account whenever a player uses that command.
+
+Commands are matched using java regular expressions. If text 
+entered by a player matches a configured rule, Command iConomy 
+will attempt to bill the player.
+
+Command iConomy requires iConomy 4.5+ to be installed.
+
+======= Configuration ======
+To set the price of a command, add a line to prices.yml. 
+Command iConomy matches regular expressions against user 
+input. Regular expressions allow you to charge separately 
+for individual sub-commands or even specific command arguments.
+
+A typical configuration line looks like this:
+^/tp: 10
+
+For more info on regular expressions, see: 
+http://www.regular-expressions.info/reference.html
+
+=== Internationalization ===
+Three additional settings can be made in the config.yml file
+to localize Command iConomy's text. You will have to create
+config.yml. They are:
+
+* NoAccountMessage
+* InsuficientFundsMessage
+* AccountDeductedMessage 
+     - Substitute {cost} for cost
