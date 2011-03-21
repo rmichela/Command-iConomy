@@ -1,5 +1,6 @@
 package com.ryanmichela.cmdiconomy;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.ChatColor;
@@ -27,7 +28,9 @@ public class CIListener extends PlayerListener {
 		
 		for(String re : pc.getExpressions()) {
 			
-			if(Pattern.matches(re, event.getMessage())) {
+			Pattern p = Pattern.compile(re, Pattern.CASE_INSENSITIVE);
+			Matcher m = p.matcher(event.getMessage());
+			if(m.find()) {
 
 				// Does the player have an account?
 				String pName = event.getPlayer().getName();
