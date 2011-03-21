@@ -55,6 +55,8 @@ public class CIListener extends PlayerListener {
 				String msg = plugin.getConfiguration().getString("AccountDeductedMessage", "Charged {cost}");
 				msg = msg.replaceAll("\\{cost\\}", iConomy.getBank().format(cost));
 				event.getPlayer().sendMessage(ChatColor.GREEN + msg);
+				
+				return;
 			}
 		}
 	}
