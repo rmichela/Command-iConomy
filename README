@@ -18,6 +18,16 @@ for individual sub-commands or even specific command arguments.
 A typical configuration line looks like this:
 ^/tp: 10
 
+Command expressions are matched in order from top to bottom. If
+a match is found, Command iConomy stops looking for a match and
+charges the player the configured amount. If the command is
+configured with a cost of zero, processing will stop but the
+player will not be charged. Together these features allow open
+ended commands to be individually charged. Ex:
+
+^/warp help: 0
+^/warp \S+: 10
+
 For more info on regular expressions, see: 
 http://www.regular-expressions.info/reference.html
 

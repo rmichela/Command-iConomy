@@ -41,8 +41,11 @@ public class CIListener extends PlayerListener {
 					return;
 				}
 				
-				// Does the player have sufficient funds?
+				// Does the command have a cost of zero?
 				double cost = pc.getValue(re);
+				if(cost == 0f) return;
+				
+				// Does the player have sufficient funds?
 				if(!(iConomy.getBank().getAccount(pName).getBalance() >= cost)) {
 					String msg = plugin.getConfiguration().getString("InsuficientFundsMessage", "Insuficent funds.");
 					event.getPlayer().sendMessage(ChatColor.RED + msg);
