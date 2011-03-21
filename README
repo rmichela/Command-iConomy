@@ -31,6 +31,10 @@ ended commands to be individually charged. Ex:
 For more info on regular expressions, see: 
 http://www.regular-expressions.info/reference.html
 
+======= Permissions ========
+
+* CommandIConomy.Free - Grants free access to all commands.
+
 === Internationalization ===
 Three additional settings can be made in the config.yml file
 to localize Command iConomy's text. You will have to create

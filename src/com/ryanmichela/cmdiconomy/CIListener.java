@@ -24,8 +24,10 @@ public class CIListener extends PlayerListener {
 	
 		if(event.getPlayer() == null) return;
 		
-		// Is this command one we are charging for?	
+		// Is the player exempt by permission?
+		if(iConomy.getPermissions().has(event.getPlayer(), "CommandIConomy.Free")) return;
 		
+		// Is this command one we are charging for?	
 		for(String re : pc.getExpressions()) {
 			
 			Pattern p = Pattern.compile(re, Pattern.CASE_INSENSITIVE);
