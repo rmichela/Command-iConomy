@@ -59,7 +59,7 @@ public class CIPlugin extends JavaPlugin {
 			try {
 				PriceCache pc = new PriceCache(configFile);		
 				CIListener listener = new CIListener(this, pc);
-				getServer().getPluginManager().registerEvent(Type.PLAYER_COMMAND_PREPROCESS, listener , Priority.Normal, this);
+				getServer().getPluginManager().registerEvent(Type.PLAYER_COMMAND_PREPROCESS, listener , Priority.Highest, this);
 				log.info("[Command iConomy] Loaded.");
 			} catch (Exception e) {
 				log.log(Level.SEVERE, "[Command iConomy] Failed to process prices.config", e);
