@@ -34,6 +34,10 @@ public class CIListener extends PlayerListener {
 	public CIListener(CIPlugin plugin, PriceCache pc) {
 		this.plugin = plugin;
 		this.pc = pc;
+		
+		if(verbose()) {
+			log().info("[Command iConomy] Verbose mode enabled.");
+		}
 	}
 	
 	@Override

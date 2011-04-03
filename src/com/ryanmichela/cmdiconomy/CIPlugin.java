@@ -58,10 +58,10 @@ public class CIPlugin extends JavaPlugin {
 			try {
 				log.info("[Command iConomy] Populating initial config file");
 				PrintStream out = new PrintStream(new FileOutputStream(configFile));
-				out.println("Verbose:false");
-				out.println("NoAccountMessage:No bank account.");
-				out.println("InsuficientFundsMessage:Insuficent funds.");
-				out.println("AccountDeductedMessage:Charged {cost}");
+				out.println("Verbose: false");
+				out.println("NoAccountMessage: No bank account.");
+				out.println("InsuficientFundsMessage: Insuficent funds.");
+				out.println("AccountDeductedMessage: Charged {cost}");
 				out.close();
 			} catch (IOException e) {
 				log.severe("[Command iConomy] Error initializing config file. You're on your own!");
