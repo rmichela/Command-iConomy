@@ -20,7 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.ChatColor;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.util.config.Configuration;
 
@@ -37,7 +37,7 @@ public class CIListener extends PlayerListener {
 	}
 	
 	@Override
-	public void onPlayerCommandPreprocess(PlayerChatEvent event) {
+	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 	
 		if(event.getPlayer() == null) return;
 		
