@@ -93,7 +93,7 @@ public class CIListener extends PlayerListener {
 	}
 	
 	private boolean verbose() {
-		return plugin.getConfiguration().getBoolean("verbose", false);
+		return plugin.getConfiguration().getBoolean("Verbose", false);
 	}
 	
 	private Configuration config() {

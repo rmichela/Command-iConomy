@@ -37,16 +37,31 @@ public class CIPlugin extends JavaPlugin {
 			getDataFolder().mkdir();
 		}
 		
-		File configFile = new File(getDataFolder(), "prices.yml");			
-		if(!configFile.exists()) {
+		File pricesFile = new File(getDataFolder(), "prices.yml");			
+		if(!pricesFile.exists()) {
 			try {
-				log.info("[Command iConomy] Populating initial config file");
-				PrintStream out = new PrintStream(new FileOutputStream(configFile));
+				log.info("[Command iConomy] Populating initial prices file");
+				PrintStream out = new PrintStream(new FileOutputStream(pricesFile));
 				out.println("# To charge for a command, list a matching regular expression below on its own");
 				out.println("# line with the price, separated by a colon. For more info on regular expressions");
 				out.println("# see http://www.regular-expressions.info/reference.html");
 				out.println();
 				out.println("# ^/tp: 10");
+				out.close();
+			} catch (IOException e) {
+				log.severe("[Command iConomy] Error initializing prices file. You're on your own!");
+			}
+		}
+		
+		File configFile = new File(getDataFolder(), "config.yml");
+		if(!configFile.exists()) {
+			try {
+				log.info("[Command iConomy] Populating initial config file");
+				PrintStream out = new PrintStream(new FileOutputStream(configFile));
+				out.println("Verbose:false");
+				out.println("NoAccountMessage:No bank account.");
+				out.println("InsuficientFundsMessage:Insuficent funds.");
+				out.println("AccountDeductedMessage:Charged {cost}");
 				out.close();
 			} catch (IOException e) {
 				log.severe("[Command iConomy] Error initializing config file. You're on your own!");
@@ -57,7 +72,7 @@ public class CIPlugin extends JavaPlugin {
 			log.severe("[Command iConomy] Could not find iConomoy!");
 		} else {
 			try {
-				PriceCache pc = new PriceCache(configFile);		
+				PriceCache pc = new PriceCache(pricesFile);		
 				CIListener listener = new CIListener(this, pc);
 				getServer().getPluginManager().registerEvent(Type.PLAYER_COMMAND_PREPROCESS, listener , Priority.Lowest, this);
 				log.info("[Command iConomy] Loaded.");
