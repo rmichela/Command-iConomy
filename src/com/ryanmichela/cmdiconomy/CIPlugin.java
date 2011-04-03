@@ -62,7 +62,7 @@ public class CIPlugin extends JavaPlugin {
 				out.println("ChargeForChat: false");
 				out.println();
 				out.println("NoAccountMessage: No bank account.");
-				out.println("InsuficientFundsMessage: Insuficent funds.");
+				out.println("InsuficientFundsMessage: Insuficent funds. {cost} needed.");
 				out.println("AccountDeductedMessage: Charged {cost}");
 				out.close();
 			} catch (IOException e) {

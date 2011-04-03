@@ -83,7 +83,8 @@ public class CIListener extends PlayerListener {
 				
 				// Does the player have sufficient funds?
 				if(!(iConomy.getBank().getAccount(pName).getBalance() >= cost)) {
-					String msg = config().getString("InsuficientFundsMessage", "Insuficent funds.");
+					String msg = config().getString("InsuficientFundsMessage", "Insuficent funds. {cost} needed.");
+					msg = msg.replaceAll("\\{cost\\}", iConomy.getBank().format(cost));
 					if(verbose()) {
 						log().info("[Command iConomy] " + event.getPlayer().getName() + " has insuficent funds to invoke " + event.getMessage());
 					}
