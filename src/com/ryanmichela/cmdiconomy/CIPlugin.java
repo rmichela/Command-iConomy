@@ -59,6 +59,8 @@ public class CIPlugin extends JavaPlugin {
 				log.info("[Command iConomy] Populating initial config file");
 				PrintStream out = new PrintStream(new FileOutputStream(configFile));
 				out.println("Verbose: false");
+				out.println("ChargeForChat: false");
+				out.println();
 				out.println("NoAccountMessage: No bank account.");
 				out.println("InsuficientFundsMessage: Insuficent funds.");
 				out.println("AccountDeductedMessage: Charged {cost}");
@@ -75,6 +77,10 @@ public class CIPlugin extends JavaPlugin {
 				PriceCache pc = new PriceCache(pricesFile);		
 				CIListener listener = new CIListener(this, pc);
 				getServer().getPluginManager().registerEvent(Type.PLAYER_COMMAND_PREPROCESS, listener , Priority.Lowest, this);
+				// Conditionally bill for player chat
+				if(getConfiguration().getBoolean("ChargeForChat", false)) {
+					getServer().getPluginManager().registerEvent(Type.PLAYER_CHAT, listener, Priority.Lowest, this);
+				}
 				log.info("[Command iConomy] Loaded.");
 			} catch (Exception e) {
 				log.log(Level.SEVERE, "[Command iConomy] Failed to process prices.config", e);

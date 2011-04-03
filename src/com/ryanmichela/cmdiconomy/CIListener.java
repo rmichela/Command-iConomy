@@ -20,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.ChatColor;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.util.config.Configuration;
@@ -42,6 +43,15 @@ public class CIListener extends PlayerListener {
 	
 	@Override
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+		chargePlayerForCommand(event);
+	}
+	
+	@Override
+	public void onPlayerChat(PlayerChatEvent event) {
+		chargePlayerForCommand(event);
+	}
+	
+	private void chargePlayerForCommand(PlayerChatEvent event) {
 	
 		if(event.getPlayer() == null) return;
 		
@@ -95,7 +105,7 @@ public class CIListener extends PlayerListener {
 			}
 		}	
 	}
-	
+
 	private boolean verbose() {
 		return plugin.getConfiguration().getBoolean("Verbose", false);
 	}
