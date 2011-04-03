@@ -15,12 +15,14 @@
 
 package com.ryanmichela.cmdiconomy;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.util.config.Configuration;
 
 import com.nijiko.coelho.iConomy.iConomy;
 
@@ -52,7 +54,10 @@ public class CIListener extends PlayerListener {
 				// Does the player have an account?
 				String pName = event.getPlayer().getName();
 				if(!iConomy.getBank().hasAccount(pName)) {
-					String msg = plugin.getConfiguration().getString("NoAccountMessage", "No bank account.");
+					String msg = config().getString("NoAccountMessage", "No bank account.");
+					if(verbose()) {
+						log().info("[Command iConomy] " + event.getPlayer().getName() + " does not have a bank account ?!");
+					}
 					event.getPlayer().sendMessage(ChatColor.RED + msg);
 					event.setCancelled(true);
 					return;
@@ -64,7 +69,10 @@ public class CIListener extends PlayerListener {
 				
 				// Does the player have sufficient funds?
 				if(!(iConomy.getBank().getAccount(pName).getBalance() >= cost)) {
-					String msg = plugin.getConfiguration().getString("InsuficientFundsMessage", "Insuficent funds.");
+					String msg = config().getString("InsuficientFundsMessage", "Insuficent funds.");
+					if(verbose()) {
+						log().info("[Command iConomy] " + event.getPlayer().getName() + " has insuficent funds to invoke " + event.getMessage());
+					}
 					event.getPlayer().sendMessage(ChatColor.RED + msg);
 					event.setCancelled(true);
 					return;
@@ -72,12 +80,27 @@ public class CIListener extends PlayerListener {
 				
 				// All checks passed - deduct funds
 				iConomy.getBank().getAccount(pName).subtract(cost);
-				String msg = plugin.getConfiguration().getString("AccountDeductedMessage", "Charged {cost}");
+				String msg = config().getString("AccountDeductedMessage", "Charged {cost}");
+				if(verbose()) {
+					log().info("[Command iConomy] " + event.getPlayer().getName() + " was charged " + iConomy.getBank().format(cost) + " for " + event.getMessage());
+				}
 				msg = msg.replaceAll("\\{cost\\}", iConomy.getBank().format(cost));
 				event.getPlayer().sendMessage(ChatColor.GREEN + msg);
 				
 				return;
 			}
-		}
+		}	
+	}
+	
+	private boolean verbose() {
+		return plugin.getConfiguration().getBoolean("verbose", false);
+	}
+	
+	private Configuration config() {
+		return plugin.getConfiguration();
+	}
+	
+	private Logger log() {
+		return plugin.getServer().getLogger();
 	}
 }
