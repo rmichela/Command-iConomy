@@ -38,11 +38,16 @@ http://www.regular-expressions.info/reference.html
 ====== Configuration ======
 The following additional commands can be added to config.yml
 
-* verbose
+* Verbose
 - Default false. When true, transactions are written to the console.
-* chargeForChat
+
+* ChargeForChat
 - Default false. When true, matching expressions are also applied to
   chat. Useful for charging for swear words.
+
+* PayTo
+- Default null. When set, Command iConomy will deposit whatever was
+  charged from the player into this account.
 
 Three additional settings can be made in the config.yml file
 to localize Command iConomy's text. You will have to create

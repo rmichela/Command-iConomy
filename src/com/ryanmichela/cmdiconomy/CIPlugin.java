@@ -97,6 +97,7 @@ public class CIPlugin extends JavaPlugin {
 				PrintStream out = new PrintStream(new FileOutputStream(configFile));
 				out.println("Verbose: false");
 				out.println("ChargeForChat: false");
+				out.println("#PayTo: accountName");
 				out.println();
 				out.println("NoAccountMessage: No bank account.");
 				out.println("InsuficientFundsMessage: Insuficent funds. {cost} needed.");

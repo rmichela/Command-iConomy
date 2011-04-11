@@ -107,6 +107,18 @@ public class CIListener extends PlayerListener {
 				msg = msg.replaceAll("\\{cost\\}", iConomy.getBank().format(cost));
 				event.getPlayer().sendMessage(ChatColor.GREEN + msg);
 				
+				// If there is a pay to account, make a payment
+				String payTo = config().getString("PayTo");
+				if(payTo != null) {
+					try {
+						iConomy.getBank().getAccount(payTo).add(cost);
+						if(verbose()) {
+							log().info("[Command iConomy] " + payTo + " was credited " + iConomy.getBank().format(cost));
+						}
+					} catch (NullPointerException e) {
+						log().severe("[Command iConomy] Cannot deposit funds into the account " + payTo + " because it does not exist!");
+					}
+				}
 				return;
 			}
 		}	
