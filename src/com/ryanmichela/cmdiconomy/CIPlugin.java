@@ -28,47 +28,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CIPlugin extends JavaPlugin {
 	
+	private Logger log;
+	private File pricesFile;
+	
+	@Override
+	public void onLoad() {
+		log = getServer().getLogger();
+		pricesFile = new File(getDataFolder(), "prices.yml");
+		
+		initFiles();
+	}
+
 	@Override
 	public void onEnable() {
-		Logger log = getServer().getLogger();
-		
-		// Initialize config directory
-		if(!getDataFolder().exists()) {
-			getDataFolder().mkdir();
-		}
-		
-		File pricesFile = new File(getDataFolder(), "prices.yml");			
-		if(!pricesFile.exists()) {
-			try {
-				log.info("[Command iConomy] Populating initial prices file");
-				PrintStream out = new PrintStream(new FileOutputStream(pricesFile));
-				out.println("# To charge for a command, list a matching regular expression below on its own");
-				out.println("# line with the price, separated by a colon. For more info on regular expressions");
-				out.println("# see http://www.regular-expressions.info/reference.html");
-				out.println();
-				out.println("# ^/tp: 10");
-				out.close();
-			} catch (IOException e) {
-				log.severe("[Command iConomy] Error initializing prices file. You're on your own!");
-			}
-		}
-		
-		File configFile = new File(getDataFolder(), "config.yml");
-		if(!configFile.exists()) {
-			try {
-				log.info("[Command iConomy] Populating initial config file");
-				PrintStream out = new PrintStream(new FileOutputStream(configFile));
-				out.println("Verbose: false");
-				out.println("ChargeForChat: false");
-				out.println();
-				out.println("NoAccountMessage: No bank account.");
-				out.println("InsuficientFundsMessage: Insuficent funds. {cost} needed.");
-				out.println("AccountDeductedMessage: Charged {cost}");
-				out.close();
-			} catch (IOException e) {
-				log.severe("[Command iConomy] Error initializing config file. You're on your own!");
-			}
-		}
 		
 		if(getServer().getPluginManager().getPlugin("iConomy") == null) {
 			log.severe("[Command iConomy] Could not find iConomoy!");
@@ -92,5 +64,46 @@ public class CIPlugin extends JavaPlugin {
 	public void onDisable() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private void initFiles() {
+		// Initialize config directory
+		if(!getDataFolder().exists()) {
+			getDataFolder().mkdir();
+		}
+		
+		// Initialize prices.yml			
+		if(!pricesFile.exists()) {
+			try {
+				log.info("[Command iConomy] Populating initial prices file");
+				PrintStream out = new PrintStream(new FileOutputStream(pricesFile));
+				out.println("# To charge for a command, list a matching regular expression below on its own");
+				out.println("# line with the price, separated by a colon. For more info on regular expressions");
+				out.println("# see http://www.regular-expressions.info/reference.html");
+				out.println();
+				out.println("# ^/tp: 10");
+				out.close();
+			} catch (IOException e) {
+				log.severe("[Command iConomy] Error initializing prices file. You're on your own!");
+			}
+		}
+		
+		// Initialize config.yml
+		File configFile = new File(getDataFolder(), "config.yml");
+		if(!configFile.exists()) {
+			try {
+				log.info("[Command iConomy] Populating initial config file");
+				PrintStream out = new PrintStream(new FileOutputStream(configFile));
+				out.println("Verbose: false");
+				out.println("ChargeForChat: false");
+				out.println();
+				out.println("NoAccountMessage: No bank account.");
+				out.println("InsuficientFundsMessage: Insuficent funds. {cost} needed.");
+				out.println("AccountDeductedMessage: Charged {cost}");
+				out.close();
+			} catch (IOException e) {
+				log.severe("[Command iConomy] Error initializing config file. You're on your own!");
+			}
+		}
 	}
 }
