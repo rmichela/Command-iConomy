@@ -36,6 +36,7 @@ public class CIPlugin extends JavaPlugin {
 		log = getServer().getLogger();
 		pricesFile = new File(getDataFolder(), "prices.yml");
 		
+		//Initialize config files
 		initFiles();
 	}
 
