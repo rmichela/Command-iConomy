@@ -55,8 +55,13 @@ public class CIListener extends PlayerListener {
 	
 		if(event.getPlayer() == null) return;
 		
-		// Is the player exempt by permission?
-		if(iConomy.getPermissions().has(event.getPlayer(), "CommandIConomy.Free")) return;
+		try {
+			// Is the player exempt by permission?
+			if(iConomy.getPermissions().has(event.getPlayer(), "CommandIConomy.Free")) return;
+		} catch (NoClassDefFoundError e) {
+			// Permissions not installed, fall back to ops
+			if(event.getPlayer().isOp()) return;
+		}
 		
 		// Is this command one we are charging for?	
 		for(String re : pc.getExpressions()) {
