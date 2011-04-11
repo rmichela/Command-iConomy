@@ -24,17 +24,30 @@ import java.util.Set;
 
 public class PriceCache {
 	
-	private Map<String, Double> prices = new HashMap<String, Double>();
+	private Map<String, MatchExpression> prices = new HashMap<String, MatchExpression>();
 	
 	public PriceCache(File f) throws Exception {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		String line;
 		while((line = reader.readLine()) != null) {
 			if(line.startsWith("#")) continue;
-			String[] parts = line.split(":");
-			if(parts.length == 2) {
-				prices.put(parts[0], Double.parseDouble(parts[1]));
+			
+			String[] parts = line.split(":");			
+			if(parts.length != 2) continue;
+			
+			MatchExpression me = new MatchExpression();
+			me.re = parts[0];
+			
+			String[] costParts = parts[1].trim().split(" ");
+			
+			me.cost = Double.parseDouble(costParts[0]);
+			if(costParts.length == 2) {
+				me.cooldown = Integer.parseInt(costParts[1]);
+			} else {
+				me.cooldown = 0;
 			}
+			
+			prices.put(me.re, me);
 		}
 		reader.close();
 	}
@@ -43,7 +56,17 @@ public class PriceCache {
 		return prices.keySet();
 	}
 	
-	public double getValue(String expression) {
-		return prices.get(expression);
+	public double getCost(String expression) {
+		return prices.get(expression).cost;
+	}
+	
+	public int getCooldown(String expression) {
+		return prices.get(expression).cooldown;
+	}
+	
+	private class MatchExpression {
+		public String re;
+		public double cost;
+		public int cooldown;
 	}
 }

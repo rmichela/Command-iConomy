@@ -9,7 +9,10 @@ will attempt to bill the player.
 
 Command iConomy requires iConomy 4.5+ to be installed.
 
-======= Configuration ======
+======= Prices.yml ======
+The Prices.yml file is used to set the prices for commands.
+
+1. _Match Expressions_
 To set the price of a command, add a line to prices.yml. 
 Command iConomy matches regular expressions against user 
 input. Regular expressions allow you to charge separately 
@@ -31,11 +34,22 @@ ended commands to be individually charged. Ex:
 For more info on regular expressions, see: 
 http://www.regular-expressions.info/reference.html
 
-======= Permissions ========
+2. _Cooldown Timers_
+A cooldown timer allows a command to be used freely for a period
+of time after it has been paid for. To add a cooldown timer to
+a command, add a space after the price, followed by the number
+of seconds to allow. For example, to allow a player to warp
+as many times as she likes for one minute after paying 10 coin,
+make the following your match expression:
+
+^/warp \S+: 10 60
+
+3. _Permissions Nodes_
+The following permissions nodes are supported
 
 * CommandIConomy.Free - Grants free access to all commands.
 
-====== Configuration ======
+====== Config.yml ======
 The following additional commands can be added to config.yml
 
 * Verbose

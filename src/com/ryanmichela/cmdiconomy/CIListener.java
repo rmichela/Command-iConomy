@@ -69,6 +69,11 @@ public class CIListener extends PlayerListener {
 			Pattern p = Pattern.compile(re, Pattern.CASE_INSENSITIVE);
 			Matcher m = p.matcher(event.getMessage());
 			if(m.find()) {
+				
+				// Is this command currently cooling down?
+				if(!CooldownClock.TimerExpired(event.getPlayer(), re)) {
+					return;
+				}
 
 				// Does the player have an account?
 				String pName = event.getPlayer().getName();
@@ -83,7 +88,7 @@ public class CIListener extends PlayerListener {
 				}
 				
 				// Does the command have a cost of zero?
-				double cost = pc.getValue(re);
+				double cost = pc.getCost(re);
 				if(cost == 0f) return;
 				
 				// Does the player have sufficient funds?
@@ -98,6 +103,8 @@ public class CIListener extends PlayerListener {
 					return;
 				}
 				
+				///////////////////////////////////////////////////
+				
 				// All checks passed - deduct funds
 				iConomy.getBank().getAccount(pName).subtract(cost);
 				String msg = config().getString("AccountDeductedMessage", "Charged {cost}");
@@ -106,6 +113,9 @@ public class CIListener extends PlayerListener {
 				}
 				msg = msg.replaceAll("\\{cost\\}", iConomy.getBank().format(cost));
 				event.getPlayer().sendMessage(ChatColor.GREEN + msg);
+				
+				// Start the cooldown timer
+				CooldownClock.StartTimer(event.getPlayer(), re, pc.getCooldown(re));
 				
 				// If there is a pay to account, make a payment
 				String payTo = config().getString("PayTo");
