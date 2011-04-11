@@ -35,7 +35,15 @@ http://www.regular-expressions.info/reference.html
 
 * CommandIConomy.Free - Grants free access to all commands.
 
-=== Internationalization ===
+====== Configuration ======
+The following additional commands can be added to config.yml
+
+* verbose
+- Default false. When true, transactions are written to the console.
+* chargeForChat
+- Default false. When true, matching expressions are also applied to
+  chat. Useful for charging for swear words.
+
 Three additional settings can be made in the config.yml file
 to localize Command iConomy's text. You will have to create
 config.yml. They are:
@@ -44,9 +52,3 @@ config.yml. They are:
 * InsuficientFundsMessage
 * AccountDeductedMessage 
      - Substitute {cost} for cost
-     
-====== Configuration ======
-The following additional commands can be added to config.yml
-
-* verbose
-- Default false. When true, transactions are written to the console.
