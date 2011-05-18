@@ -72,7 +72,7 @@ public class CIListener extends PlayerListener {
 				
 				// Is this command currently cooling down?
 				if(!CooldownClock.TimerExpired(event.getPlayer(), re)) {
-                                             event.getPlayer().sendMessage(ChatColor.RED +"This function in still on a cooldown.");
+					event.getPlayer().sendMessage(ChatColor.RED +"This function in still on a cooldown.");
 					event.setCancelled(true);
 					return;
 				}
